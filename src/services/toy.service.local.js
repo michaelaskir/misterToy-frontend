@@ -19,7 +19,9 @@ export const toyService = {
 function query(filterBy = {}) {
     return storageService.query(STORAGE_KEY)
         .then(toys => {
-            const { txt = '', maxPrice = Infinity } = filterBy
+
+            const txt = filterBy.txt || ''
+            const maxPrice = filterBy.maxPrice === '' ? Infinity : +filterBy.maxPrice
 
             const regExp = new RegExp(txt, 'i')
 
@@ -73,7 +75,7 @@ function getRandomToy() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', maxPrice: '', minSpeed: '' }
+    return { txt: '', maxPrice: '', }
 }
 
 function getRandomName() {
