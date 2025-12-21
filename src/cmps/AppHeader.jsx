@@ -33,9 +33,9 @@ export function AppHeader() {
     }
 
     return (
-        <header className="app-header full main-layout">
+        <header className="app-header full main-layout padding">
             <section className="header-container">
-                <h1>React Toy Apps</h1>
+                <h1>Mister Toy</h1>
                 <nav className="app-nav">
                     <NavLink to="/" >Home</NavLink>
                     <NavLink to="/about" >About</NavLink>

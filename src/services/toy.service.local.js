@@ -13,7 +13,7 @@ export const toyService = {
     remove,
     getEmptyToy,
     getRandomToy,
-    getDefaultFilter
+    getDefaultFilter,
 }
 
 function query(filterBy = {}) {
@@ -25,14 +25,30 @@ function query(filterBy = {}) {
 
             const regExp = new RegExp(txt, 'i')
 
-            return toys.filter(toy =>
+            // if(filterBy.txt){
+
+            // }
+
+           
+
+            const toysToReturn = toys.filter(toy =>
                 regExp.test(toy.name) &&
                 toy.price <= maxPrice
             )
+
+            
+            return _getNextPreviousToy(toysToReturn)
         })
 }
 
 function getById(toyId) {
+    return query(getDefaultFilter()).then((toys)=>{
+
+        const toyToReturn  = toys.find((toy)=>toy._id === toyId)
+     
+        
+        return toyToReturn
+    })
     return storageService.get(STORAGE_KEY, toyId)
 }
 
@@ -102,3 +118,26 @@ function getRandomLabel() {
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 6', price: 980}).then(x => console.log(x))
 
 
+// Helpers
+
+
+
+function _getNextPreviousToy(toys){
+    return toys.map((toy, index)=>{
+        const toysLength = toys.length
+        let nextIndex = index + 1
+        let prevIndex = index - 1
+        if(index === 0) prevIndex = toysLength - 1
+        if(index === toysLength - 1) nextIndex = 0
+        
+        return {
+            ...toy,
+            nextPrev:{
+                next: toys[nextIndex]._id,
+                prev: toys[prevIndex]._id
+
+            }
+        }
+    })
+
+}

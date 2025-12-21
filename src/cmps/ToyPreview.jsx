@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-export function ToyPreview({ toy }) {
+export function ToyPreview({ toy , onRemoveToy}) {
 
     return (
         <article>
@@ -13,8 +13,11 @@ export function ToyPreview({ toy }) {
                 </p>
             )}
             <hr />
-            <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp; | &nbsp;
-            <Link to={`/toy/${toy._id}`}>Details</Link>
+             <button onClick={() => onRemoveToy(toy._id)}>x</button>
+             &nbsp; | &nbsp;
+            <button><Link to={`/toy/edit/${toy._id}`}>Edit</Link></button>
+             &nbsp; | &nbsp;
+             <button><Link to={`/toy/${toy._id}`}>Details</Link></button>
         </article>
     )
 }
